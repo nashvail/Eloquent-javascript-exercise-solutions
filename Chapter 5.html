@@ -1,0 +1,15 @@
+<script>
+	// Question 1 >>
+
+	// An Array of arrays 
+	var arrayOfArrays = [[1, 2, 3], [4, 5, 6], [7, 8 ,9]];
+	console.log(arrayOfArrays);
+	// Flatten array with the help of reduce and the concat method
+	function flattenArray(someArray) { 
+		return (someArray.reduce(function(elementN, elementNplusOne) {
+			return elementN.concat(elementNplusOne);
+		}));
+	};
+
+	console.log(flattenArray(arrayOfArrays));
+</script>
