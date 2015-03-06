@@ -50,7 +50,7 @@
 	* Function : mcAgeDiff(age difference between mother of the person and the person)
 	* --------------------------------------------------------------------------------
 	* mcAgeDiff -> mother child age difference, returns the difference between ages of 
-	* the 'person' passed in as parameter and the age of 'person''s mother
+	* the 'person' and 'person''s mother
 	*/
 	function mcAgeDiff(person) {
 		return (Math.abs(age(peopleByName[person.mother]) - age(person)));
@@ -73,7 +73,7 @@
 
 	// Question 3>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-		
+
 	/*
 	* Function : groupBy(array of objects, function that returns name of the group(string))
 	* -------------------------------------------------------------------------------------------
@@ -98,7 +98,7 @@
 	/*
 	* Function : computeCentury(person object)
 	* ----------------------------------------------
-	* Returns the century in which the 'person' died
+	* Returns the century(Number) in which the 'person' died
 	*/
 	function computeCentury(person) {
 	  return String((Math.ceil(person.died / 100)));
@@ -114,7 +114,6 @@
 
 	var peopleByCentury = groupBy(ancestry, computeCentury);
 
-	// What we will have to go through each element of the object and compute the average of each one 
 	var avgAgeByCent = {};
 	for(var century in peopleByCentury) {
 	  var peopleInCentury = peopleByCentury[century];
@@ -122,5 +121,40 @@
 	}
 	console.log(avgAgeByCent);
 
+	// Question 4>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+	var array = [1, 2, 3, 4, 5, 6, "Seven"];
+
+	console.log(every(array, isNumber));
+	console.log(some(array, isNumber));
+
+	// A simple predicate function that tests that if a varaible is of type number
+	function isNumber(toTest) {
+	  return (typeof toTest === "number");
+	}
+
+	/*
+	* Function : every(a normal array, a predicate function to test every element of the array)
+	* -----------------------------------------------------------------------------------------
+	* Returns true if EVERY element of the array result in predicate evaluating to true, false
+	* otherwise.
+	*/
+	function every(array, predicate) {
+	  for( var i = 0 ; i < array.length ; i++ )
+	    if(!predicate(array[i])) return false;
+	  return true;
+	}
+
+	/*
+	* Function : some(a normal array, a predicate function to test every element of the array)
+	* -----------------------------------------------------------------------------------------
+	* Returns true if SOME elements of the array result in predicate evaluating to true, false
+	* if no element result in predicate function producing true.
+	*/
+	function some(array, predicate) {
+	  for( var i = 0 ; i < array.length ; i++ )
+	    if(predicate(array[i])) return true;
+	  return false;
+	}
 
 </script>
