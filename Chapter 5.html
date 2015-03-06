@@ -12,4 +12,59 @@
 	};
 
 	console.log(flattenArray(arrayOfArrays));
+
+
+	var ancestry = JSON.parse(ANCESTRY_FILE);
+
+	// Question 2>>
+
+	// Compute the average age difference between mothers and their children
+
+	// Store of people mapped their object to their name
+	var peopleByName = {};
+	ancestry.forEach(function(person) {
+	  peopleByName[person.name] = person;
+	});
+
+	/*
+	* Function : age(person object whose age is to be computed)
+	* ---------------------------------------------------------
+	* Calculates age of the person passed in as parameter. Expects
+	* parameter to be an object.
+	*/
+	function age(person) {
+	  return (person.died - person.born);
+	}
+
+	/*
+	* Function : motherInData(person whose mother's presence is to be checked)
+	* ------------------------------------------------------------------------
+	* Checks if the the "person"'s mother is also present in the provided data
+	* set, returns true if present false otherwise.
+	*/
+	function motherInData(person) {
+	  return (person.mother in peopleByName);
+	}
+
+	/*
+	* Function : average(an array of numbers)
+	* --------------------------------------------------------
+	* Intakes an array of numbers and calculates their average.
+	*/
+	function average(array) {
+	  return (array.reduce(function(elementN, elementNplusOne) {
+	      return elementN + elementNplusOne;
+	  })/array.length);
+	};
+
+
+	console.log(
+	    average(
+	      ancestry.filter(motherInData).map(function(person) {
+	        return(Math.abs(age(peopleByName[person.mother]) - age(person)));
+	      })
+	    ) 
+	  );
+
+
 </script>
