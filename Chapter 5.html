@@ -1,5 +1,5 @@
 <script>
-	// Question 1 >>
+	// Question 1 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	// An Array of arrays 
 	var arrayOfArrays = [[1, 2, 3], [4, 5, 6], [7, 8 ,9]];
@@ -16,7 +16,7 @@
 
 	var ancestry = JSON.parse(ANCESTRY_FILE);
 
-	// Question 2>>
+	// Question 2>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	// Compute the average age difference between mothers and their children
 
@@ -47,6 +47,16 @@
 	}
 
 	/*
+	* Function : mcAgeDiff(age difference between mother of the person and the person)
+	* --------------------------------------------------------------------------------
+	* mcAgeDiff -> mother child age difference, returns the difference between ages of 
+	* the 'person' passed in as parameter and the age of 'person''s mother
+	*/
+	function mcAgeDiff(person) {
+		return (Math.abs(age(peopleByName[person.mother]) - age(person)));
+	}
+
+	/*
 	* Function : average(an array of numbers)
 	* --------------------------------------------------------
 	* Intakes an array of numbers and calculates their average.
@@ -58,13 +68,59 @@
 	};
 
 
-	console.log(
-	    average(
-	      ancestry.filter(motherInData).map(function(person) {
-	        return(Math.abs(age(peopleByName[person.mother]) - age(person)));
-	      })
-	    ) 
-	  );
+
+	console.log(average(ancestry.filter(motherInData).map(mcAgeDiff)));
+
+	// Question 3>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+		
+	/*
+	* Function : groupBy(array of objects, function that returns name of the group(string))
+	* -------------------------------------------------------------------------------------------
+	* Returns an object of format :- {groupName : Array of objects falling into groupName, ...}
+	* Parameter 'array' should be a group of objects, 
+	* Parameter 'computeGroup' is the function that returns the name of the group under which the
+	* current element falls .
+	*/
+	function groupBy(array, computeGroup) {
+	  var peopleByGroup = {};
+	  array.forEach(function(person) { 
+	    var currentGroup = computeGroup(person);
+	    if(currentGroup in peopleByGroup) {
+	      peopleByGroup[currentGroup].push(person);
+	    } else {
+	      peopleByGroup[currentGroup] = [person];
+	    }
+	  });
+	  return peopleByGroup;
+	};
+
+	/*
+	* Function : computeCentury(person object)
+	* ----------------------------------------------
+	* Returns the century in which the 'person' died
+	*/
+	function computeCentury(person) {
+	  return String((Math.ceil(person.died / 100)));
+	}
+
+	function average(array) {
+	  return array.reduce(function(a, b){return a + b;}) / array.length;
+	}
+
+	function age(person) {
+	  return person.died - person.born;
+	}
+
+	var peopleByCentury = groupBy(ancestry, computeCentury);
+
+	// What we will have to go through each element of the object and compute the average of each one 
+	var avgAgeByCent = {};
+	for(var century in peopleByCentury) {
+	  var peopleInCentury = peopleByCentury[century];
+	  avgAgeByCent[century] = average(peopleInCentury.map(age));
+	}
+	console.log(avgAgeByCent);
 
 
 </script>
