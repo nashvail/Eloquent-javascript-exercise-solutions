@@ -25,4 +25,16 @@
 	var newVector = myVector.minus(myVector)
 	console.log(newVector.length); // 0
 
+	// Question 2>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	function StretchCell(innerTCell ,width, height) {
+		this.innerTCell = innerTCell;
+		this.width = width;
+		this.height = height;
+	}
+
+	// TextCell and StretchCell share the same nearest prototype
+	StretchCell.prototype = Object.create(TextCell.prototype);
+
+	StretchCell.prototype.minWidth = function(){return Math.max(this.width, innerTCell.minWidth())};
+	StretchCell.prototype.minHeight = function(){return Math.max(this.height, innerTCell.minHeight());};
 </script>
