@@ -1,2 +1,2 @@
 # Eloquent javascript exercise solutions
-Solutions to exercises in the Eloquent Javascript book. 
+My solutions to some exercises in the Eloquent Javascript book. 
