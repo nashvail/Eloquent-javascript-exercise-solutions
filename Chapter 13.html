@@ -1,4 +1,5 @@
 <script>
+	// Question1>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	'use strict';
 	var MOUNTAINS = [
 	  {name: "Kilimanjaro", height: 5895, country: "Tanzania"},
@@ -42,5 +43,24 @@
 	}
 
 
-	sbuildTable();
+	buildTable();
+
+	// Question2>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+	function getElementsByTagName(tag) {
+	var foundElements = [];
+	tag = tag.toUpperCase();
+
+	function getElementsByTag(currentNode) {
+		if(currentNode.tagName === tag) foundElements.push(currentNode);
+		var childrens = currentNode.childNodes;
+		for(var i = 0 ; i < childrens.length; i++){
+			getElementsByTag(childrens[i]);
+		}
+	}
+		getElementsByTag(document.body);
+		return foundElements;
+	}
+
+	var found = getElementsByTagName("p");
 </script>
