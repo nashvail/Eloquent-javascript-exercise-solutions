@@ -1,0 +1,46 @@
+<script>
+	'use strict';
+	var MOUNTAINS = [
+	  {name: "Kilimanjaro", height: 5895, country: "Tanzania"},
+	  {name: "Everest", height: 8848, country: "Nepal"},
+	  {name: "Mount Fuji", height: 3776, country: "Japan"},
+	  {name: "Mont Blanc", height: 4808, country: "Italy/France"},
+	  {name: "Vaalserberg", height: 323, country: "Netherlands"},
+	  {name: "Denali", height: 6168, country: "United States"},
+	  {name: "Popocatepetl", height: 5465, country: "Mexico"}
+	];
+
+
+	// Well this is great you just a built a table out of javascript, pretty awesome isn't it 
+
+	function buildTable() {
+		var table = document.createElement("table");
+		document.body.appendChild(table);
+
+		// add the headers to the table
+		var headerKeys = Object.keys(MOUNTAINS[0]);
+		var headerRow = document.createElement("tr");
+		for(var i = 0 ; i < headerKeys.length ; i++) {
+			var headerCell = document.createElement("th");
+			headerCell.textContent = headerKeys[i].toUpperCase();
+			headerRow.appendChild(headerCell);
+		}
+
+		table.appendChild(headerRow);
+
+		MOUNTAINS.forEach(function(mountain) {
+			var currentTableRow = document.createElement("tr");
+			for(var prop in mountain) {
+				if(mountain.hasOwnProperty(prop)) {
+					var currentTableCell = document.createElement("td");
+					currentTableCell.textContent = mountain[prop];
+					currentTableRow.appendChild(currentTableCell);
+				}
+			}
+			table.appendChild(currentTableRow);
+		});
+	}
+
+
+	sbuildTable();
+</script>
