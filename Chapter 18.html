@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<title>Chapter 18</title>
+	</head>
+	<body>
+		<label class = "fieldlabel">Search : <input type="text" class = "inputField" id = "search"></label>
+		<ul class="suggestions"></ul>
+		<script type = "text/javascript">
+
+			var suggestionsList = document.querySelector(".suggestions");
+
+			var searchField = document.querySelector(".inputField");
+			searchField.addEventListener("input", function() {
+				suggestionsList.innerHTML = "";
+				suggestions.forEach(function(suggestion){
+					if(isPrefix(searchField.value.toLowerCase(), suggestion)) {
+						insertNewSuggestion(suggestionsList, suggestion);
+					}
+				});
+			});
+
+
+			/*
+			* Function : insertNewSuggestion(List of suggestions <ul> , text of the new suggestion)
+			* Usage    : insertNewSuggestion(suggestionsList, suggestion)
+			* -------------------------------------------------------------------------------------
+			* Creates and puts a new <li> element in the <ul> list of suggestions 
+			*/
+			function insertNewSuggestion(suggestionList, newSuggestionText) {
+				var newSuggestion = document.createElement("li");
+				newSuggestion.textContent = newSuggestionText;
+				newSuggestion.addEventListener("click", function() {
+					searchField.value = newSuggestionText;
+				});
+				suggestionList.appendChild(newSuggestion);
+			}
+			/*
+			* Function : isPrefix(prefix, the word on which the check is applied)
+			* -------------------------------------------------------------------
+			* Checks if the 'prefix' is prefix of the 'word' returns true if it is
+			* false otherwise.
+			* Example : ar is prefix of array but am is not a prefix of array	 
+			*/
+			function isPrefix(prefix, word) {
+				return (word.indexOf(prefix) > -1);
+			}
+
+		</script>
+	</body>
+</html>
