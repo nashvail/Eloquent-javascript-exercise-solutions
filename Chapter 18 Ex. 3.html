@@ -43,13 +43,14 @@
 		var HEIGHT_WORLD = world.getBoundingClientRect().height;
 		var WIDTH_WORLD = world.getBoundingClientRect().width;
 
-		// Fill the world with cells 
+	
 		var NUM_ROWS = Math.floor(HEIGHT_WORLD / HEIGHT_CELL);
 		var NUM_COLS = Math.floor(WIDTH_WORLD / WIDTH_CELL);
 		var NUM_CELLS = NUM_ROWS * NUM_COLS;
 
 		// Holds every cell element that exists in the DOM 
 		var cells = []; 
+		// Fill the world with cells 
 		for (var i = 0 ; i < NUM_CELLS ; i++) {
 			var newCell = getNewCell();
 			addNewCellToWorld(world, newCell);
@@ -118,9 +119,9 @@
 		/*
 		* Function : getLiveNeighborsCount(one dimensional index of the cell whose neighbors are to be found)
 		* ------------------------------------------------------------------------------------------
-		* Return the neighboring (directly touching even the diagonal ones) cells of the cell whose
-		* nieghbors are asked for. 
-		* Returns the number of alive neighbors the current cell under consideration has
+		* Returns the neighboring (directly touching even the diagonal ones) cells of the cell whose
+		* neighbors are asked for. 
+		* Returns the number of live neighbors the current cell under consideration has
 		*/
 		function getLiveNeighborsCount(cellIndex) {
 			var neighbors = [];
@@ -135,8 +136,8 @@
 		/*
 		* Function : addNeighborIfValid(list of neighbors(array), the vector containing position of the passed neighbor)
 		* --------------------------------------------------------------------------------------------------------------
-		* Checks if the passed in neighbor is a valid neighbor. A valid neighbor is one who is inside the bounds of 
-		* the world and not outside of it and the one that is alive is only considered a neighbor
+		* Checks if the passed in neighbor is a valid neighbor. A valid neighbor is one which is inside the bounds of 
+		* the world and not outside of it and the one that is alive is only considered a neighbor.
 		* If the neighbor is a valid one then adds it to the list of neighbors and does nothing otherwise
 		*/
 		function addNeighborIfValid(neighborsList, neighborVector) {
@@ -149,7 +150,7 @@
 		}
 
 		/*
-		* Function : isInBounds(vector on whom the check is to be applied)
+		* Function : isInBounds(vector on which the check is to be applied)
 		* -----------------------------------------------------------------
 		* 
 		*/
@@ -190,8 +191,8 @@
 		* Usage    : world.appendChild(newCell());
 		* --------------------------------------------
 		* Creates and returns a checkbox element that 
-		* is considered as a cell in the program
-		* Returns on random checked or unchecked cell
+		* is considered as a cell in the program.
+		* Returns on random, checked or unchecked cell
 		* checked means alive and unchecked means dead
 		*/
 		function getNewCell() {
