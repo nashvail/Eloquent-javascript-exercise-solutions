@@ -8,7 +8,7 @@
 		}
 		#world{
 			width : 800px;
-			height : 100px;
+			height : 400px;
 			margin : 0 auto;
 			margin-top :100px;
 			padding : 0px;
@@ -32,6 +32,28 @@
 	</div>
 	<script type = "text/javascript">
 		'use strict';
+		// As defined by the browser default styles at zoom level of 100%
+		var WIDTH_CELL = 17;
+		var HEIGHT_CELL  = 17;
+
+		// Div that holds the world of the cells
+		var world = document.querySelector("#world");
+		var HEIGHT_WORLD = world.getBoundingClientRect().height;
+		var WIDTH_WORLD = world.getBoundingClientRect().width;
+
+		// Fill the world with cells 
+		var NUM_ROWS = Math.floor(HEIGHT_WORLD / HEIGHT_CELL);
+		var NUM_COLS = Math.floor(WIDTH_WORLD / WIDTH_CELL);
+		var NUM_CELLS = NUM_ROWS * NUM_COLS;
+
+		// Holds every cell element that exists in the DOM 
+		var cells = []; 
+		for (var i = 0 ; i < NUM_CELLS ; i++) {
+			var newCell = getNewCell();
+			addNewCellToWorld(world, newCell);
+			cells.push(newCell);
+		}
+
 		/*
 		 The rules are as follows
 		 1 . Any live cell with fewer than two or more than three live neighbors dies
@@ -79,38 +101,6 @@
 		Vector.prototype.subtract = function(otherVector) {
 			return (new Vector(this.x - otherVector.x, this.y - otherVectory.y));
 		}
-
-
-		// Extending the Array functionality to add new element to the end of the array
-		Array.prototype.add = function(element) {
-			this[this.length] = element;
-		}
-
-		// As defined by the browser default styles at zoom level of 100%
-		var WIDTH_CELL = 17;
-		var HEIGHT_CELL  = 17;
-
-		// Div that holds the world of the cells
-		var world = document.querySelector("#world");
-		var HEIGHT_WORLD = world.getBoundingClientRect().height;
-		var WIDTH_WORLD = world.getBoundingClientRect().width;
-
-		// Fill the world with cells 
-		var NUM_ROWS = Math.floor(HEIGHT_WORLD / HEIGHT_CELL);
-		var NUM_COLS = Math.floor(WIDTH_WORLD / WIDTH_CELL);
-		var NUM_CELLS = NUM_ROWS * NUM_COLS;
-
-
-
-		// Holds every cell element that exists in the DOM 
-		var cells = []; 
-		for (var i = 0 ; i < NUM_CELLS ; i++) {
-			var newCell = getNewCell();
-			addNewCellToWorld(world, newCell);
-			cells.add(newCell);
-		}
-
-
 
 		var neighborDirections = {
 			"n" : new Vector(0, 1),
