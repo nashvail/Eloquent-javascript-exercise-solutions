@@ -68,12 +68,12 @@
 				var numLiveNeighbors = getLiveNeighborsCount(currentCell);
 				if(isAlive(currentCell)) {
 					if(numLiveNeighbors < 2 || numLiveNeighbors > 3)
-						cellsThatDie.add(currentCell);
+						cellsThatDie.push(currentCell);
 					else if(numLiveNeighbors === 2 || numLiveNeighbors === 3)
-						cellsThatLive.add(currentCell);
+						cellsThatLive.push(currentCell);
 				}else{
 					if(numLiveNeighbors === 3)
-						cellsThatLive.add(currentCell);
+						cellsThatLive.push(currentCell);
 				}
 			}
 
@@ -139,7 +139,7 @@
 		*/
 		function addNeighborIfValid(neighborsList, neighborVector) {
 			if(isInBounds(neighborVector) && isAlive(getIndexFromVector(neighborVector)))
-				neighborsList.add(getIndexFromVector(neighborVector));
+				neighborsList.push(getIndexFromVector(neighborVector));
 		}
 
 		function isAlive(cellIndex) {
