@@ -64,33 +64,34 @@
 		 3 . Any dead cell with three live neighbors becomes alive
 		*/
 
-		function incrementGeneration() {
-			var cellsThatLive = [];
-			var cellsThatDie = [];
-			for(var currentCell = 0 ; currentCell < cells.length ; currentCell++){
-				var numLiveNeighbors = getLiveNeighborsCount(currentCell);
-				if(isAlive(currentCell)) {
+		function incrementGeneration(cellsCollection) {
+			var indicesOfCellsThatLive = [];
+			var indicesOfCellsThatDie = [];
+			cellsCollection.forEach(function(currentCell, currentCellIndex) {
+				var numLiveNeighbors = getLiveNeighborsCount(currentCellIndex);
+				if(isAlive(currentCellIndex)) {
 					if(numLiveNeighbors < 2 || numLiveNeighbors > 3)
-						cellsThatDie.push(currentCell);
+						indicesOfCellsThatDie.push(currentCellIndex);
 					else if(numLiveNeighbors === 2 || numLiveNeighbors === 3)
-						cellsThatLive.push(currentCell);
+						indicesOfCellsThatLive.push(currentCellIndex);
 				}else{
 					if(numLiveNeighbors === 3)
-						cellsThatLive.push(currentCell);
+						indicesOfCellsThatLive.push(currentCellIndex);
 				}
-			}
+			});
 
-			for(var i  = 0 ;i < cellsThatLive.length ; i++)
-				cells[cellsThatLive[i]].checked = true;
-			for(var j  = 0 ;j < cellsThatDie.length ; j++)
-				cells[cellsThatDie[j]].checked = false;
+			indicesOfCellsThatLive.forEach(function(currentCellIndex) {
+				cellsCollection[currentCellIndex].checked = true;
+			});
+			indicesOfCellsThatDie.forEach(function(currentCellIndex) {
+				cellsCollection[currentCellIndex].checked = false;
+			});
 
 		}
 
-		setInterval(function(){
-			incrementGeneration();
+		setInterval(function() {
+			incrementGeneration(cells);
 		}, 150);
-
 
 		// Vector that holds the position of the cell in form of x and y coordinates in the world
 		function Vector(x, y) {
