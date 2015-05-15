@@ -106,32 +106,37 @@
 			return (new Vector(this.x - otherVector.x, this.y - otherVectory.y));
 		}
 
-		var neighborDirections = {
-			"n" : new Vector(0, 1),
-			"e" : new Vector(1, 0),
-			"s" : new Vector(0, -1),
-			"w" : new Vector(-1, 0),
-			"ne" : new Vector(1, 1),
-			"nw" : new Vector(-1, 1),
-			"se" : new Vector(1, -1),
-			"sw" : new Vector(-1, -1)
-		};
+
 
 		/*
 		* Function : getLiveNeighborsCount(one dimensional index of the cell whose neighbors are to be found)
-		* ------------------------------------------------------------------------------------------
+		* ---------------------------------------------------------------------------------------------------
 		* Returns the neighboring (directly touching even the diagonal ones) cells of the cell whose
 		* neighbors are asked for. 
 		* Returns the number of live neighbors the current cell under consideration has
+		* Keeps the neighborDirections private to the function itself not exposing to the global object.
 		*/
-		function getLiveNeighborsCount(cellIndex) {
-			var neighbors = [];
-			var currentCellVector = getVectorFromIndex(cellIndex);
-			for(var direction in neighborDirections) {
-				addNeighborIfValid(neighbors, currentCellVector.add(neighborDirections[direction]));
-			}
-			return neighbors.length;
-		}
+		var getLiveNeighborsCount = (function (cellIndex) {
+			var neighborDirections = {
+				"n" : new Vector(0, 1),
+				"e" : new Vector(1, 0),
+				"s" : new Vector(0, -1),
+				"w" : new Vector(-1, 0),
+				"ne" : new Vector(1, 1),
+				"nw" : new Vector(-1, 1),
+				"se" : new Vector(1, -1),
+				"sw" : new Vector(-1, -1)
+			};
+
+			return function(cellIndex) {
+				var neighbors = [];
+				var currentCellVector = getVectorFromIndex(cellIndex);
+				for(var direction in neighborDirections) {
+					addNeighborIfValid(neighbors, currentCellVector.add(neighborDirections[direction]));
+				}
+				return neighbors.length;
+			};
+		}());
 
 
 		/*
